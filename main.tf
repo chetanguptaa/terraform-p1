@@ -42,3 +42,21 @@ resource "aws_route_table_association" "my_public_assoc" {
   subnet_id      = aws_subnet.my_public_subnet.id
   route_table_id = aws_route_table.my_public_rt.id
 }
+
+resource "aws_security_group" "my_sg" {
+  name        = "dev_ig"
+  description = "dev security group"
+  vpc_id      = aws_vpc.my_vpc.id
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["190.7.8.1/32"]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
