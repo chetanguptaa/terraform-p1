@@ -62,6 +62,16 @@ resource "aws_security_group" "my_sg" {
 }
 
 resource "aws_key_pair" "my_auth" {
-  key_name = "mtckey"
+  key_name   = "mtckey"
   public_key = file("~/.ssh/mtckey.pub")
 }
+
+resource "aws_instance" "dev-node" {
+  instance_type = "t2.micro"
+  ami           = data.aws_ami.server_ami.id
+  tags = {
+    Name = "dev-node"
+  }
+  key_name = aws_key_pair.my_auth.id
+}
+
