@@ -61,3 +61,7 @@ resource "aws_security_group" "my_sg" {
   }
 }
 
+resource "aws_key_pair" "my_auth" {
+  key_name = "mtckey"
+  public_key = file("~/.ssh/mtckey.pub")
+}
